@@ -1,0 +1,6 @@
+- Python 3.9+  
+statsmodels
+pandas
+numpy
+matplotlib
+sklearn

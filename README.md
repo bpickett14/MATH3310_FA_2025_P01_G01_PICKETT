@@ -1,74 +1,96 @@
-# Data Project Template
+# MATH 3310: Analyzing Murder Rate in Relation to Socioeconomic and Demographic Variables
 
-<a target="_blank" href="https://datalumina.com/">
-    <img src="https://img.shields.io/badge/Datalumina-Project%20Template-2856f7" alt="Datalumina Project" />
-</a>
+**Course:** Data Mining & Text Analytics (MATH 3310)  
+**Instructor:** Dr. Jishan Ahmed  
+**Semester:** Fall 2025  
+**Group:** 01
+**Repository:** MATH3310_FA_2025_P01_G01_PICKETT
 
-## Cookiecutter Data Science
-This project template is a simplified version of the [Cookiecutter Data Science](https://cookiecutter-data-science.drivendata.org) template, created to suit the needs of Datalumina and made available as a GitHub template.
+---
 
-## Adjusting .gitignore
+## Project Overview
+This project investigates the relationship between murder rates across U.S. states and various socioeconomic and demographic factors. Using both classical statistics and machine learning approaches, we explore which factors contribute most to variations in murder rates and assess the predictive power of our models.
 
-Ensure you adjust the `.gitignore` file according to your project needs. For example, since this is a template, the `/data/` folder is commented out and data will not be exlucded from source control:
+The dataset `crime.csv` includes variables such as income, education, unemployment, and region. The state variable is treated as a subject identifier and is not used as a predictor. 
 
-```plaintext
-# exclude data from source control by default
-# /data/
-```
+---
 
-Typically, you want to exclude this folder if it contains either sensitive data that you do not want to add to version control or large files.
+## Project Structure
+├── data/
+│ └── raw/
+│ └── crime.csv # Original dataset
+├── notebooks/
+│ └── first_project.ipynb # Main analysis notebook
+├── README.md # This file
+└── requirements.txt # Python packages used
 
-## Duplicating the .env File
-To set up your environment variables, you need to duplicate the `.env.example` file and rename it to `.env`. You can do this manually or using the following terminal command:
+
+---
+
+## Methods
+
+### Part 1: Classical Statistics Approach
+- Multiple linear regression using `statsmodels`  
+- ANOVA comparisons to evaluate nested models and identify significant predictors  
+- Diagnostics including residual plots, Q-Q plots, and time series analysis  
+- Calculated RMSE for model evaluation  
+
+**Key variables included in final model:**  
+- `single_parent`  
+- `metropolitan`  
+- `high_school`  
+
+---
+
+### Part 2: Machine Learning Approach
+- Linear Regression using `scikit-learn`  
+- Train/test split (80/20) and 5-fold cross-validation  
+- Pipelines and `ColumnTransformer` used for scaling and preprocessing  
+- Evaluated model using R² and visualized predictions  
+
+---
+
+## Results
+
+**Classical Statistics:**  
+- Full model Adjusted R²: 0.6191567906134434
+- Reduced model RMSE: 1.649644176815288
+- Significant predictors: `single_parent`, `metropolitan`, `high_school`  
+
+**Machine Learning:**  
+- Train R²: 0.7162247626538154 
+- Test R²: 0.2725910727718007
+- Cross-validation average R²: 0.35275094205763685  
+
+
+---
+
+## Contributions
+| Team Member      | Contributions |
+|------------------|---------------|
+| Brenna Pickett   | Majority of coding, data preprocessing, model building, diagnostics, plotting, writing analysis and discussion. |
+| Dante Smith      | Contributed initial draft answers for Question 2; work was refined and incorporated into final notebook. |
+
+---
+
+## Reflection & Recommendations
+- Classical approach provides interpretability for variable relationships; machine learning approach provides predictive accuracy.  
+- Future analyses could include more granular data by state or county for improved prediction.  
+- Policymakers can use the findings to target interventions in areas with higher single-parent households, metropolitan areas, or lower high school graduation rates.  
+- A Tableau dashboard could help visualize correlations and trends across regions.  
+
+---
+
+## Requirements
+- Python 3.9+  
+- pandas  
+- numpy  
+- matplotlib  
+- scikit-learn  
+- statsmodels  
+
+Install packages using:
 
 ```bash
-cp .env.example .env # Linux, macOS, Git Bash, WSL
-copy .env.example .env # Windows Command Prompt
-```
+pip install -r requirements.txt
 
-This command creates a copy of `.env.example` and names it `.env`, allowing you to configure your environment variables specific to your setup.
-
-
-## Project Organization
-
-```
-├── LICENSE            <- Open-source license if one is chosen
-├── README.md          <- The top-level README for developers using this project
-├── data
-│   ├── external       <- Data from third party sources
-│   ├── interim        <- Intermediate data that has been transformed
-│   ├── processed      <- The final, canonical data sets for modeling
-│   └── raw            <- The original, immutable data dump
-│
-├── models             <- Trained and serialized models, model predictions, or model summaries
-│
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`
-│
-├── references         <- Data dictionaries, manuals, and all other explanatory materials
-│
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
-│
-└── src                         <- Source code for this project
-    │
-    ├── __init__.py             <- Makes src a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    │    
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    ├── plots.py                <- Code to create visualizations 
-    │
-    └── services                <- Service classes to connect with external platforms, tools, or APIs
-        └── __init__.py 
-```
